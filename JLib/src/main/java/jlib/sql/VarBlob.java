@@ -5,16 +5,14 @@
  * Licensed under LGPL (LGPL-LICENSE.txt) license.
  */
 /**
- * 
+ *
  */
 package jlib.sql;
 
 /**
- *
  * @author Pierre-Jean Ditscheid, Consultas SA
  * @version $Id: VarBlob.java,v 1.1 2008/04/01 15:24:10 u930di Exp $
  */
-public class VarBlob
-{
+public class VarBlob {
 
 }

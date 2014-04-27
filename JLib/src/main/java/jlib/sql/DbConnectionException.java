@@ -6,19 +6,16 @@
  */
 package jlib.sql;
 
-public class DbConnectionException extends Exception
-{
-	private static final long serialVersionUID = "DbConnectionException".hashCode();
-	
-	private String m_csMessage;
-	
-	public DbConnectionException(String csMessage)
-	{
-		m_csMessage = csMessage;
-	}
-	
-	public String toString()
-	{
-		return "DbConnectionException: "+m_csMessage;
-	}
+public class DbConnectionException extends Exception {
+    private static final long serialVersionUID = "DbConnectionException".hashCode();
+
+    private String m_csMessage;
+
+    public DbConnectionException(String csMessage) {
+        m_csMessage = csMessage;
+    }
+
+    public String toString() {
+        return "DbConnectionException: " + m_csMessage;
+    }
 }

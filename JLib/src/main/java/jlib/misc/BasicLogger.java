@@ -7,12 +7,9 @@
 package jlib.misc;
 
 
-
-public class BasicLogger
-{
-//	private static String ms_csFileOut = "/tmp/logNacaSPServer.txt";
-	static public void setFileOut(String csFileOut)
-	{
+public class BasicLogger {
+    //	private static String ms_csFileOut = "/tmp/logNacaSPServer.txt";
+    static public void setFileOut(String csFileOut) {
 //		ms_csFileOut = csFileOut;
 //		try 
 //		{ 			
@@ -23,10 +20,9 @@ public class BasicLogger
 //		{ 
 //			 throw new RuntimeException(e);
 //		}
-	}
-	
-	static public void log(String csText)
-	{
+    }
+
+    static public void log(String csText) {
 //		try 
 //		{ 			
 //			PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(ms_csFileOut, true)));
@@ -37,5 +33,5 @@ public class BasicLogger
 //		{ 
 //			 
 //		}
-	}
+    }
 }

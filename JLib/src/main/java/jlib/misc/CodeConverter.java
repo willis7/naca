@@ -6,43 +6,38 @@
  */
 package jlib.misc;
 
-public class CodeConverter
-{
-	private int ms_nSize = 0;
-	private int[] ms_tFrom = null;
-	private int[] ms_tTo = null;
+public class CodeConverter {
+    private int ms_nSize = 0;
+    private int[] ms_tFrom = null;
+    private int[] ms_tTo = null;
 
-	public CodeConverter(String csConversion)
-	{
-		if (csConversion == null || csConversion.equals("")) return;
-		
-		String[] csSplit = csConversion.split(",");
-		ms_nSize = csSplit.length;
-		
-		ms_tFrom = new int [ms_nSize];
-		ms_tTo = new int [ms_nSize];
-		for (int n=0; n < ms_nSize; n++)
-		{	
-			String[] csFromTo = csSplit[n].split("-");
-			int nFrom = new Integer(csFromTo[0]).intValue();
-			int nTo = new Integer(csFromTo[1]).intValue();
-			ms_tFrom[n] = nFrom; 
-			ms_tTo[n] = nTo;
-		}
-	}
-	
-	public String convert(String csIn)
-	{
-		if (ms_nSize == 0) return csIn;
-		
-		String csOut = csIn;
-		for (int n=0; n < ms_nSize; n++)
-		{
-			csOut = csOut.replace((char)ms_tFrom[n], (char)ms_tTo[n]);
-		}
-		return csOut;
-	}
-	
+    public CodeConverter(String csConversion) {
+        if (csConversion == null || csConversion.equals("")) return;
+
+        String[] csSplit = csConversion.split(",");
+        ms_nSize = csSplit.length;
+
+        ms_tFrom = new int[ms_nSize];
+        ms_tTo = new int[ms_nSize];
+        for (int n = 0; n < ms_nSize; n++) {
+            String[] csFromTo = csSplit[n].split("-");
+            int nFrom = new Integer(csFromTo[0]).intValue();
+            int nTo = new Integer(csFromTo[1]).intValue();
+            ms_tFrom[n] = nFrom;
+            ms_tTo[n] = nTo;
+        }
+    }
+
+    public String convert(String csIn) {
+        if (ms_nSize == 0) return csIn;
+
+        String csOut = csIn;
+        for (int n = 0; n < ms_nSize; n++) {
+            csOut = csOut.replace((char) ms_tFrom[n], (char) ms_tTo[n]);
+        }
+        return csOut;
+    }
+
 //	public byte [] convert(byte tbSource[])
 //	{
 //		if (ms_nSize == 0) 

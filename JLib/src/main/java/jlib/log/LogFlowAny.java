@@ -14,27 +14,26 @@ package jlib.log;
  * The <i>Any</i> flow, as the <i>None</i> flow (see {@link LogFlowNone})
  * are not intended for events (see {@link LogEvent}), but only
  * for {@link LogCenter}s.<p/>
- * {@link LogCenter}s assigned to the <i>Any</i> flow accept events from 
+ * {@link LogCenter}s assigned to the <i>Any</i> flow accept events from
  * all flows.
- *  
+ *
  * @author PJD
  */
-public class LogFlowAny extends LogFlow
-{
-/**
- * Registers the <i>Any</i> flow to the {@link LogFlowRegister} singleton.
- */
-	LogFlowAny()
-	{
-		super("Any");
-	}
-/**
- * Checks if an event <i>LogFlow</i> is accepted by the current flow.
- * <i>Any</i> flows accept events from all flows.
- * @return Always <i>true</i>.
- */			
-	public boolean isAcceptable(LogFlow logFlow)
-	{
-		return true;
-	}	
+public class LogFlowAny extends LogFlow {
+    /**
+     * Registers the <i>Any</i> flow to the {@link LogFlowRegister} singleton.
+     */
+    LogFlowAny() {
+        super("Any");
+    }
+
+    /**
+     * Checks if an event <i>LogFlow</i> is accepted by the current flow.
+     * <i>Any</i> flows accept events from all flows.
+     *
+     * @return Always <i>true</i>.
+     */
+    public boolean isAcceptable(LogFlow logFlow) {
+        return true;
+    }
 }

@@ -5,37 +5,31 @@
  * Licensed under LGPL (LGPL-LICENSE.txt) license.
  */
 package jlib.persitantQueue;
+
 import jlib.threads.BaseThread;
 import jlib.threads.Threadutil;
 import jlib.xml.Tag;
 
-public abstract class PersistentDequeueTagThread extends BaseThread
-{
-	private PersistantQueue m_persistantQueue = null;
-	private int m_nLoopWait_ms = 0;
+public abstract class PersistentDequeueTagThread extends BaseThread {
+    private PersistantQueue m_persistantQueue = null;
+    private int m_nLoopWait_ms = 0;
 
-	protected PersistentDequeueTagThread(PersistantQueue persistantQueue, int nLoopWait_ms)
-	{
-		m_persistantQueue = persistantQueue;
-		m_nLoopWait_ms = nLoopWait_ms;
-	}
+    protected PersistentDequeueTagThread(PersistantQueue persistantQueue, int nLoopWait_ms) {
+        m_persistantQueue = persistantQueue;
+        m_nLoopWait_ms = nLoopWait_ms;
+    }
 
-	public void run()
-	{
-		boolean bContinue = true;
-		while(bContinue)
-		{   
-			Tag tagItem = m_persistantQueue.getFirstAsTag();
-			if(tagItem == null)
-			{
-				bContinue = Threadutil.wait(m_nLoopWait_ms);   
-			}
-			else
-			{
-				bContinue = handleObject(tagItem);
-			}
-		}
-	}
-	
-	protected abstract boolean handleObject(Tag tagItem);
+    public void run() {
+        boolean bContinue = true;
+        while (bContinue) {
+            Tag tagItem = m_persistantQueue.getFirstAsTag();
+            if (tagItem == null) {
+                bContinue = Threadutil.wait(m_nLoopWait_ms);
+            } else {
+                bContinue = handleObject(tagItem);
+            }
+        }
+    }
+
+    protected abstract boolean handleObject(Tag tagItem);
 }

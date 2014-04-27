@@ -7,20 +7,17 @@
 package jlib.log;
 
 
-public class LogExceptionEvent extends LogEvent
-{
-	protected LogExceptionEvent(LogEventType type, LogFlow flow, LogLevel level)
-	{
-		super(type, flow, level);
-	}
-	
-	protected void fillExceptionMembers(Exception e)
-	{
-		e.fillInStackTrace();
-		StackTraceElement stack[] = e.getStackTrace();
-		String csStack = StackStraceSupport.getAsString(stack);
-		
-		fillMember("Message", e.getMessage());
-		fillMember("Stack", csStack);
-	}
+public class LogExceptionEvent extends LogEvent {
+    protected LogExceptionEvent(LogEventType type, LogFlow flow, LogLevel level) {
+        super(type, flow, level);
+    }
+
+    protected void fillExceptionMembers(Exception e) {
+        e.fillInStackTrace();
+        StackTraceElement stack[] = e.getStackTrace();
+        String csStack = StackStraceSupport.getAsString(stack);
+
+        fillMember("Message", e.getMessage());
+        fillMember("Stack", csStack);
+    }
 }

@@ -6,9 +6,13 @@
  */
 package jlib.misc;
 
-import java.net.*;
-import java.util.*;
-import java.security.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * In the multitude of java GUID generators, I found none that
@@ -18,7 +22,7 @@ import java.security.*;
  * easy/possible to guess given a sample from a given generator.
  * SQL Server, for example generates GUID that are unique but
  * sequencial within a given instance.
- *
+ * <p/>
  * GUIDs can be used as security devices to hide things such as
  * files within a filesystem where listings are unavailable (e.g. files
  * that are served up from a Web server with indexing turned off).
@@ -28,12 +32,12 @@ import java.security.*;
  * where you want to ensure that the keys are secret.  Random GUIDs can
  * then be used in a URL to prevent hackers (or users) from accessing
  * records by guessing or simply by incrementing sequential numbers.
- *
+ * <p/>
  * There are many other possiblities of using GUIDs in the realm of
  * security and encryption where the element of randomness is important.
  * This class was written for these purposes but can also be used as a
  * general purpose GUID generator as well.
- *
+ * <p/>
  * RandomGuid generates truly random GUIDs by using the system's
  * IP address (name/IP), system time in milliseconds (as an integer),
  * and a very large random number joined together in a single String
@@ -44,7 +48,7 @@ import java.security.*;
  * It is generally not possible to access the seed information (IP, time,
  * random number) from the resulting GUIDs as the MD5 hash algorithm
  * provides one way encryption.
- *
+ * <p/>
  * ----> Security of RandomGuid: <-----
  * RandomGuid can be called one of two ways -- with the basic java Random
  * number generator or a cryptographically strong random generator
@@ -53,42 +57,41 @@ import java.security.*;
  * and this performance hit may not be worth the added security
  * especially considering the basic generator is seeded with a
  * cryptographically strong random seed.
- *
+ * <p/>
  * Seeding the basic generator in this way effectively decouples
  * the random numbers from the time component making it virtually impossible
  * to predict the random number component even if one had absolute knowledge
  * of the System time.  Thanks to Ashutosh Narhari for the suggestion
  * of using the static method to prime the basic random generator.
- *
+ * <p/>
  * Using the secure random option, this class compies with the statistical
  * random number generator tests specified in FIPS 140-2, Security
  * Requirements for Cryptographic Modules, secition 4.9.1.
- *
+ * <p/>
  * I converted all the pieces of the seed to a String before handing
  * it over to the MD5 hash so that you could print it out to make
  * sure it contains the data you expect to see and to give a nice
  * warm fuzzy.  If you need better performance, you may want to stick
  * to byte[] arrays.
- *
+ * <p/>
  * I believe that it is important that the algorithm for
  * generating random GUIDs be open for inspection and modification.
  * This class is free for all uses.
  *
- * @version 1.2.1 11/05/02
  * @author Marc A. Mnich
- *
- * From www.JavaExchange.com, Open Software licensing
- *
- * 11/05/02 -- Performance enhancement from Mike Dubman.  
- *             Moved InetAddr.getLocal to static block.  Mike has measured
- *             a 10 fold improvement in run time.
- * 01/29/02 -- Bug fix: Improper seeding of nonsecure Random object
- *             caused duplicate GUIDs to be produced.  Random object
- *             is now only created once per JVM.
- * 01/19/02 -- Modified random seeding and added new constructor
- *             to allow secure random feature.
- * 01/14/02 -- Added random function seeding with JVM run time
- * 
+ *         <p/>
+ *         From www.JavaExchange.com, Open Software licensing
+ *         <p/>
+ *         11/05/02 -- Performance enhancement from Mike Dubman.
+ *         Moved InetAddr.getLocal to static block.  Mike has measured
+ *         a 10 fold improvement in run time.
+ *         01/29/02 -- Bug fix: Improper seeding of nonsecure Random object
+ *         caused duplicate GUIDs to be produced.  Random object
+ *         is now only created once per JVM.
+ *         01/19/02 -- Modified random seeding and added new constructor
+ *         to allow secure random feature.
+ *         01/14/02 -- Added random function seeding with JVM run time
+ * @version 1.2.1 11/05/02
  */
 public class RandomGuid {
 
@@ -118,10 +121,9 @@ public class RandomGuid {
         }
 
     }
-    
-    public static UUID getNewUUID()
-    {
-    	return UUID.randomUUID();
+
+    public static UUID getNewUUID() {
+        return UUID.randomUUID();
     }
 
 
@@ -202,8 +204,7 @@ public class RandomGuid {
      * (Useful for SQL Server UniqueIdentifiers, etc.)
      * Example: C2FEEEAC-CFCD-11D1-8B05-00600806D9B6
      */
-    public String toString() 
-    {
+    public String toString() {
         String raw = valueAfterMD5.toUpperCase();
         StringBuffer sb = new StringBuffer();
         sb.append(raw.substring(0, 8));
@@ -218,9 +219,8 @@ public class RandomGuid {
 
         return sb.toString();
     }
-    
-    public String formatAsFilename() 
-    {
+
+    public String formatAsFilename() {
         String raw = valueAfterMD5.toUpperCase();
         StringBuffer sb = new StringBuffer();
         sb.append(raw.substring(0, 8));

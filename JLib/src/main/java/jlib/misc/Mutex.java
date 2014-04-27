@@ -6,9 +6,8 @@
  */
 package jlib.misc;
 
-public class Mutex
-{
-    private Thread  owner = null;  // Owner of mutex, null if nobody
+public class Mutex {
+    private Thread owner = null;  // Owner of mutex, null if nobody
     private int lock_count = 0;
 
     /**
@@ -17,10 +16,8 @@ public class Mutex
      * times as it is acquired. The calling thread blocks until
      * it has acquired the mutex. (There is no timeout).
      */
-    public synchronized void acquire() throws InterruptedException
-    {
-        while (tryToAcquire() == false)
-        {
+    public synchronized void acquire() throws InterruptedException {
+        while (tryToAcquire() == false) {
             wait();
         }
     }
@@ -30,19 +27,16 @@ public class Mutex
      * block) if it can't get it.
      */
 
-    public synchronized boolean tryToAcquire()
-    {
+    public synchronized boolean tryToAcquire() {
         // Try to get the mutex. Return true if you got it.
 
-        if( owner == null )
-        {
+        if (owner == null) {
             owner = Thread.currentThread();
             lock_count = 1;
             return true;
         }
 
-        if(owner == Thread.currentThread())
-        {
+        if (owner == Thread.currentThread()) {
             ++lock_count;
             return true;
         }
@@ -56,16 +50,14 @@ public class Mutex
      * must be released by the thread that acquired it
      *
      * @throws IllegalStateException (a RuntimeException) if a thread
-     *      other than the current owner tries to release the mutex.
+     *                               other than the current owner tries to release the mutex.
      */
 
-    public synchronized void release()
-    {
+    public synchronized void release() {
         if (owner != Thread.currentThread())
             throw new IllegalStateException("Thread calling release() doesn't own mutex");
 
-        if (--lock_count <= 0)
-        {
+        if (--lock_count <= 0) {
             owner = null;
             notify();
         }

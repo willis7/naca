@@ -6,47 +6,38 @@
  */
 package jlib.misc;
 
-public class IntegerRef
-{
-	public IntegerRef()
-	{
-	}
-	
-	public IntegerRef(int n)
-	{
-		m_n = n;
-	}
+public class IntegerRef {
+    public IntegerRef() {
+    }
 
-	
-	public int get()
-	{
-		return m_n;
-	}
-	
-	public void set(int n)
-	{
-		m_n = n;
-	}
+    public IntegerRef(int n) {
+        m_n = n;
+    }
 
-	public void inc(int n)
-	{
-		m_n += n;
-	}
-	
-	public void inc()
-	{
-		m_n++;
-	}
-	
-	public void dec()
-	{
-		m_n--;
-	}
-	
-	public String toString()
-	{
-		return "IntegerRef:" + m_n;
-	}
-	
-	private int m_n = 0;
+
+    public int get() {
+        return m_n;
+    }
+
+    public void set(int n) {
+        m_n = n;
+    }
+
+    public void inc(int n) {
+        m_n += n;
+    }
+
+    public void inc() {
+        m_n++;
+    }
+
+    public void dec() {
+        m_n--;
+    }
+
+    public String toString() {
+        return "IntegerRef:" + m_n;
+    }
+
+    private int m_n = 0;
 }

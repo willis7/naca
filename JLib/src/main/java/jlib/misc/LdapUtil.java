@@ -6,120 +6,94 @@
  */
 package jlib.misc;
 
+import jlib.log.Log;
+
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 
-import javax.naming.Context;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
-import javax.naming.directory.BasicAttribute;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
-import javax.naming.directory.ModificationItem;
-import javax.naming.directory.SearchControls;
-
-import jlib.log.Log;
-
-public class LdapUtil
-{
+public class LdapUtil {
 
     //private static PropertyResourceBundle bundle = Bbundle.getBundle();
     //private static Log log = LogFactory.getLog(LdapUtil.class);  
-	private ArrayList<LdapThread> m_arrThread = null;
-	//Semaphore m_sem = new Semaphore(); 
-    private DirContext m_ctx = null ;
-    private CountDownLatch m_lock = new CountDownLatch(1); 
+    private ArrayList<LdapThread> m_arrThread = null;
+    //Semaphore m_sem = new Semaphore();
+    private DirContext m_ctx = null;
+    private CountDownLatch m_lock = new CountDownLatch(1);
     private ThreadSafeCounter m_NbThreadCreated = null;
-    
+
     /**
      * @throws NamingException
      */
-    
-    public LdapUtil(int nNbLdapThread)
-    {
-    	m_NbThreadCreated = new ThreadSafeCounter(nNbLdapThread);
+
+    public LdapUtil(int nNbLdapThread) {
+        m_NbThreadCreated = new ThreadSafeCounter(nNbLdapThread);
     }
-    
-    public void addServer(int nRequestId, String csUserId, String csPassword, String csServer)
-    {
-    	LdapThread th = new LdapThread(nRequestId, csUserId, csPassword, csServer, m_NbThreadCreated);
-    	
-    	if(m_arrThread == null)
-    		m_arrThread = new ArrayList<LdapThread>(); 
-    	m_arrThread.add(th);
+
+    public void addServer(int nRequestId, String csUserId, String csPassword, String csServer) {
+        LdapThread th = new LdapThread(nRequestId, csUserId, csPassword, csServer, m_NbThreadCreated);
+
+        if (m_arrThread == null)
+            m_arrThread = new ArrayList<LdapThread>();
+        m_arrThread.add(th);
     }
-    
-    public void connectOnAnyServers()
-    {
-    	if(m_arrThread != null)
-    	{
-    		int nNbThreads = m_arrThread.size();
-    		for(int n=0; n<nNbThreads; n++)
-    		{
-    			LdapThread th = m_arrThread.get(n);
-    			th.setLdapThreadOwner(this);
-    			th.start();    			
-    		}
-    	}
-    	// Wait until one thread get connected
-    	try
-		{
-			m_lock.await();
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-    	// stop all threads
+
+    public void connectOnAnyServers() {
+        if (m_arrThread != null) {
+            int nNbThreads = m_arrThread.size();
+            for (int n = 0; n < nNbThreads; n++) {
+                LdapThread th = m_arrThread.get(n);
+                th.setLdapThreadOwner(this);
+                th.start();
+            }
+        }
+        // Wait until one thread get connected
+        try {
+            m_lock.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // stop all threads
     }
-    
-    DirContext getDirContext(Hashtable<String, String> env)
-    {    	
-    	try
-    	{
-    		DirContext ctx = new InitialDirContext(env);
-    		return ctx;
-    	}
-		catch (Exception e)
-		{
-			//e.printStackTrace();
-			Log.logNormal("Exception catched in ldap getDirContext "+e.toString());
-		}
-    	return null;
+
+    DirContext getDirContext(Hashtable<String, String> env) {
+        try {
+            DirContext ctx = new InitialDirContext(env);
+            return ctx;
+        } catch (Exception e) {
+            //e.printStackTrace();
+            Log.logNormal("Exception catched in ldap getDirContext " + e.toString());
+        }
+        return null;
     }
-    
-    synchronized void setOnceDirContext(DirContext dirContext)
-    {
-    	if(m_ctx == null)
-    	{
-    		m_ctx = dirContext;
-    		m_lock.countDown();
-    	}
+
+    synchronized void setOnceDirContext(DirContext dirContext) {
+        if (m_ctx == null) {
+            m_ctx = dirContext;
+            m_lock.countDown();
+        }
     }
-    
-    
-    public LdapUtil(String csUserId, String csPassword, String csServer)
-    {
-        try
-		{
+
+
+    public LdapUtil(String csUserId, String csPassword, String csServer) {
+        try {
             Hashtable<String, String> env = new Hashtable<String, String>();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-            env.put(Context.PROVIDER_URL, "ldap://"+csServer+"/");
+            env.put(Context.PROVIDER_URL, "ldap://" + csServer + "/");
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
             env.put(Context.SECURITY_PRINCIPAL, csUserId);
-            env.put(Context.SECURITY_CREDENTIALS, csPassword);        
+            env.put(Context.SECURITY_CREDENTIALS, csPassword);
             m_ctx = new InitialDirContext(env);
-		}
-		catch (NamingException e)
-		{
-			e.printStackTrace();
-			m_ctx = null ;
-		}
+        } catch (NamingException e) {
+            e.printStackTrace();
+            m_ctx = null;
+        }
     }
 
 //    /**
@@ -130,7 +104,7 @@ public class LdapUtil
 //        ctx = new InitialDirContext(env);
 //        logEnvironment();
 //    }
-    
+
 //    /**
 //     * @throws NamingException
 //     */
@@ -149,29 +123,23 @@ public class LdapUtil
      * @return
      * @throws NamingException
      */
-    public String getOneAttribute(String dn, String attributeName)
-	{
-        try
-		{
-			Attributes attrs = m_ctx.getAttributes(dn);
-			Attribute attr = attrs.get(attributeName);
-			if (attr != null)
-			{
-				Log.logDebug("getID    : " + attr.getID());
-				NamingEnumeration enumeration = attr.getAll();
-				while (enumeration.hasMore()) 
-				{
-					Log.logDebug("getAll   : " + enumeration.next());
-				}
-				return (String) attr.get();
-			}
-		}
-		catch (NamingException e)
-		{
-			e.printStackTrace();
-			return "" ;
-		}
-		return "" ;
+    public String getOneAttribute(String dn, String attributeName) {
+        try {
+            Attributes attrs = m_ctx.getAttributes(dn);
+            Attribute attr = attrs.get(attributeName);
+            if (attr != null) {
+                Log.logDebug("getID    : " + attr.getID());
+                NamingEnumeration enumeration = attr.getAll();
+                while (enumeration.hasMore()) {
+                    Log.logDebug("getAll   : " + enumeration.next());
+                }
+                return (String) attr.get();
+            }
+        } catch (NamingException e) {
+            e.printStackTrace();
+            return "";
+        }
+        return "";
     }
 
     /**
@@ -180,14 +148,12 @@ public class LdapUtil
      * @return
      * @throws NamingException
      */
-    public NamingEnumeration getSomeAttributes(String dn, String[] attributeNames) throws NamingException 
-	{
+    public NamingEnumeration getSomeAttributes(String dn, String[] attributeNames) throws NamingException {
         Attributes attrs = m_ctx.getAttributes(dn, attributeNames);
         NamingEnumeration enumSome = attrs.getAll();
-        while (enumSome.hasMore()) 
-        {
-            Attribute a = (Attribute)enumSome.next();
-            Log.logDebug(a.getID()+" = "+a.get());
+        while (enumSome.hasMore()) {
+            Attribute a = (Attribute) enumSome.next();
+            Log.logDebug(a.getID() + " = " + a.get());
         }
         return enumSome;
     }
@@ -197,8 +163,7 @@ public class LdapUtil
      * @return
      * @throws NamingException
      */
-    public NamingEnumeration getAllAttributes(String dn) throws NamingException 
-	{
+    public NamingEnumeration getAllAttributes(String dn) throws NamingException {
         Attributes attrs = m_ctx.getAttributes(dn);
         return attrs.getAll();
     }
@@ -208,36 +173,32 @@ public class LdapUtil
      * @return
      * @throws NamingException
      */
-    public TreeMap getAllAttributesSorted(String dn) throws NamingException 
-	{
+    public TreeMap getAllAttributesSorted(String dn) throws NamingException {
         NamingEnumeration enumAll = getAllAttributes(dn);
         TreeMap<String, Object> tree = new TreeMap<String, Object>();
-        while (enumAll.hasMore()) 
-        {
-            Attribute a = (Attribute)enumAll.next();
+        while (enumAll.hasMore()) {
+            Attribute a = (Attribute) enumAll.next();
             tree.put(new String(a.getID()), a.get());
         }
-        for (Iterator it = tree.keySet().iterator(); it.hasNext();) 
-        {
-            String key = (String)it.next();
-            Log.logDebug(key+" = "+tree.get(key));
+        for (Iterator it = tree.keySet().iterator(); it.hasNext(); ) {
+            String key = (String) it.next();
+            Log.logDebug(key + " = " + tree.get(key));
         }
         return tree;
     }
 
     /**
      * @param dn
-     * @param attributeName   
+     * @param attributeName
      * @param newValue
      * @throws NamingException
      */
-    public void replaceAttribute(String dn, String attributeName, String newValue) throws NamingException 
-	{
-        Log.logDebug("attribute "+attributeName+" old value is "+getOneAttribute(dn, attributeName));
+    public void replaceAttribute(String dn, String attributeName, String newValue) throws NamingException {
+        Log.logDebug("attribute " + attributeName + " old value is " + getOneAttribute(dn, attributeName));
         ModificationItem[] mods = new ModificationItem[1];
         mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute(attributeName, newValue));
-        m_ctx.modifyAttributes(dn, mods);            
-        Log.logDebug("attribute "+attributeName+" new value is "+getOneAttribute(dn, attributeName));
+        m_ctx.modifyAttributes(dn, mods);
+        Log.logDebug("attribute " + attributeName + " new value is " + getOneAttribute(dn, attributeName));
     }
 
     /**
@@ -246,8 +207,7 @@ public class LdapUtil
      * @return
      * @throws NamingException
      */
-    public NamingEnumeration searchChildren(String dn, String filter) throws NamingException 
-	{
+    public NamingEnumeration searchChildren(String dn, String filter) throws NamingException {
         SearchControls constraints = new SearchControls();
         constraints.setSearchScope(SearchControls.ONELEVEL_SCOPE);
         return m_ctx.search(dn, filter, constraints);
@@ -259,8 +219,7 @@ public class LdapUtil
      * @return
      * @throws NamingException
      */
-    public NamingEnumeration searchOne(String dn, String filter) throws NamingException 
-	{
+    public NamingEnumeration searchOne(String dn, String filter) throws NamingException {
         SearchControls constraints = new SearchControls();
         constraints.setSearchScope(SearchControls.OBJECT_SCOPE);
         return m_ctx.search(dn, filter, constraints);
@@ -272,28 +231,23 @@ public class LdapUtil
      * @return
      * @throws NamingException
      */
-    public NamingEnumeration searchSubtree(String dn, String filter)
-	{
+    public NamingEnumeration searchSubtree(String dn, String filter) {
         SearchControls constraints = new SearchControls();
         constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
-        try
-		{
-			return m_ctx.search(dn, filter, constraints);
-		}
-		catch (NamingException e)
-		{
-			e.printStackTrace();
-			return null ;
-		}
+        try {
+            return m_ctx.search(dn, filter, constraints);
+        } catch (NamingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-	/**
-	 * @return
-	 */
-	public boolean isValid()
-	{
-		return m_ctx != null ;
-	}
+    /**
+     * @return
+     */
+    public boolean isValid() {
+        return m_ctx != null;
+    }
 
     /*
     public Map getUserAndGroupFromConfig() throws LdapUserException {

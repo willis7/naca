@@ -16,35 +16,34 @@ import javax.servlet.http.HttpServlet;
  * To change the template for this generated file go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
+
 /**
  * @author U930CV
- *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ *         <p/>
+ *         To change the template for this generated type comment go to
+ *         Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-public class InitServlet extends HttpServlet
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class InitServlet extends HttpServlet {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public void init(ServletConfig config) throws ServletException
-	{
-		super.init(config);
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
 
-		m_Config = DisplayConfig.getInstance() ;
+        m_Config = DisplayConfig.getInstance();
 
-		String path = this.getServletContext().getRealPath("/") ;
-		m_Config.setRootPath(path) ;
+        String path = this.getServletContext().getRealPath("/");
+        m_Config.setRootPath(path);
 
-		String csINIFilePath = config.getInitParameter("INIFilePath");
-		csINIFilePath = m_Config.getRootPath() + csINIFilePath ;
-		m_Config.LoadConfig(csINIFilePath) ;
+        String csINIFilePath = config.getInitParameter("INIFilePath");
+        csINIFilePath = m_Config.getRootPath() + csINIFilePath;
+        m_Config.LoadConfig(csINIFilePath);
 
 
 /*
-		m_ResourceManager.setXMLConfigFilePath(csINIFilePath) ;
+        m_ResourceManager.setXMLConfigFilePath(csINIFilePath) ;
 		m_ResourceManager.Init() ;
 		
 		m_ResourceManager.loadDBSemanticContextDef();
@@ -61,7 +60,7 @@ public class InitServlet extends HttpServlet
 			m_ResourceManager.registerSemanticManager(semanticManager);			
 		}
 	*/
-	}
-	
-	DisplayConfig m_Config = null ;
+    }
+
+    DisplayConfig m_Config = null;
 }

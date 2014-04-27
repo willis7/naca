@@ -14,21 +14,18 @@ package jlib.log;
 
 /**
  * @author PJD
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         <p/>
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
-public class LogEventError extends LogEvent
-{
-	LogEventError()
-	{
-		super(LogEventType.Error, LogFlowStd.System, LogLevel.Critical);
-	}
-	
-	public static LogEvent info(int n)
-	{
-		LogEventError event = new LogEventError();
-		event.fillMember("nErrorId", n);
-		return event;
-	}
+public class LogEventError extends LogEvent {
+    LogEventError() {
+        super(LogEventType.Error, LogFlowStd.System, LogLevel.Critical);
+    }
+
+    public static LogEvent info(int n) {
+        LogEventError event = new LogEventError();
+        event.fillMember("nErrorId", n);
+        return event;
+    }
 }

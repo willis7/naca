@@ -5,20 +5,17 @@
  * Licensed under LGPL (LGPL-LICENSE.txt) license.
  */
 /**
- * 
+ *
  */
 package jlib.sql;
 
 
-
 /**
- *
  * @author Pierre-Jean Ditscheid, Consultas SA
  * @version $Id: SQLClauseSPParamDesc.java,v 1.1 2007/10/16 09:47:08 u930di Exp $
  */
 // Originated as StoredProcParamDesc from nacaRT
-public class SQLClauseSPParamDesc extends StoredProcParamDescBase
-{
+public class SQLClauseSPParamDesc extends StoredProcParamDescBase {
 //	public void retrieveOutValues(int nParamId, PreparedCallableStatement callableStatement, CSQLStatus sqlStatus)
 //	{
 //		nParamId++;	// 1 based
@@ -46,35 +43,30 @@ public class SQLClauseSPParamDesc extends StoredProcParamDescBase
 //			}
 //		}
 //	}	
-	
-	public boolean fillInValue(int nParamId, DbPreparedCallableStatement callableStatement)
-	{
+
+    public boolean fillInValue(int nParamId, DbPreparedCallableStatement callableStatement) {
 //		if(m_varInOut != null)
 //		{			
 //			BaseDbColDefinition def = m_colDescriptionInfo.makeDbColDefinition();
 //			return def.fillCallableStatementParam(nParamId, this, callableStatement);
 //		}
-		return false;
-	}
-	
-	public String getInValueAsString()
-	{
-		return null;
-	}
-	
-	public double getInValueAsDouble()
-	{
-		return 0.0;
-	}
-	
-	public int getInValueAsInt()
-	{
-		return 0;
-	}
-	
-	public short getInValueAsShort()
-	{
-		return (short)0;
-	}
+        return false;
+    }
+
+    public String getInValueAsString() {
+        return null;
+    }
+
+    public double getInValueAsDouble() {
+        return 0.0;
+    }
+
+    public int getInValueAsInt() {
+        return 0;
+    }
+
+    public short getInValueAsShort() {
+        return (short) 0;
+    }
 
 }

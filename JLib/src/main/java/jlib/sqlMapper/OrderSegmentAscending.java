@@ -5,19 +5,16 @@
  * Licensed under LGPL (LGPL-LICENSE.txt) license.
  */
 /**
- * 
+ *
  */
 package jlib.sqlMapper;
 
 /**
- *
  * @author Pierre-Jean Ditscheid, Consultas SA
  * @version $Id: OrderSegmentAscending.java,v 1.1 2007/12/04 14:00:23 u930di Exp $
  */
-public class OrderSegmentAscending extends OrderSegment
-{
-	public OrderSegmentAscending(String csColName)
-	{
-		super(csColName, true);
-	}
+public class OrderSegmentAscending extends OrderSegment {
+    public OrderSegmentAscending(String csColName) {
+        super(csColName, true);
+    }
 }

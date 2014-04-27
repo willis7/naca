@@ -5,12 +5,11 @@
  * Licensed under LGPL (LGPL-LICENSE.txt) license.
  */
 /**
- * 
+ *
  */
 package jlib.threads;
 
 /**
- *
  * @author Pierre-Jean Ditscheid, Consultas SA
  * @version $Id$
  */
@@ -52,40 +51,31 @@ class Caller
 
 */
 
-public abstract class Timer extends Thread
-{
-	private int m_nPeriodWait_ms = 1000;
-	
-	public Timer()
-	{
-	}
-	
-	public void startTimer(int nPeriodWait_ms)
-	{
-		m_nPeriodWait_ms = nPeriodWait_ms;
-		start();
-	}
-	
-	public void run()
-	{
-		boolean bContinue = true;
-		while(bContinue)
-		{
-			try
-			{
-				Thread.sleep(m_nPeriodWait_ms);
-				bContinue = pulse();
-			} 
-			catch (InterruptedException e)
-			{
-			}
-		}
-	}
-	
-	protected abstract boolean pulse();
-	
-	public void requestStop()
-	{
-		interrupt();
-	}
+public abstract class Timer extends Thread {
+    private int m_nPeriodWait_ms = 1000;
+
+    public Timer() {
+    }
+
+    public void startTimer(int nPeriodWait_ms) {
+        m_nPeriodWait_ms = nPeriodWait_ms;
+        start();
+    }
+
+    public void run() {
+        boolean bContinue = true;
+        while (bContinue) {
+            try {
+                Thread.sleep(m_nPeriodWait_ms);
+                bContinue = pulse();
+            } catch (InterruptedException e) {
+            }
+        }
+    }
+
+    protected abstract boolean pulse();
+
+    public void requestStop() {
+        interrupt();
+    }
 }

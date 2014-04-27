@@ -6,25 +6,20 @@
  */
 package jlib.threads;
 
-public class Threadutil
-{
-	public static boolean wait(int nNbms)
-	{
-		try
-		{
-			Thread.sleep(nNbms);
-			return true;
-		} 
-		catch (InterruptedException e)
-		{
-		}
-		return false;
-	}
-	
-	public static long getCurrentThreadId()
-	{
-		Thread thread = Thread.currentThread();
-		long l = thread.getId();;
-		return l;
-	}
+public class Threadutil {
+    public static boolean wait(int nNbms) {
+        try {
+            Thread.sleep(nNbms);
+            return true;
+        } catch (InterruptedException e) {
+        }
+        return false;
+    }
+
+    public static long getCurrentThreadId() {
+        Thread thread = Thread.currentThread();
+        long l = thread.getId();
+        ;
+        return l;
+    }
 }

@@ -14,13 +14,14 @@ package jlib.log;
 
 /**
  * @author PJD
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         <p/>
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
-public abstract class LogPatternLayout
-{
-	abstract String getMessage(LogParams logParams);
-	abstract String format(LogParams logParams, int n);
-	abstract int getNbLoop(LogParams logParams);
+public abstract class LogPatternLayout {
+    abstract String getMessage(LogParams logParams);
+
+    abstract String format(LogParams logParams, int n);
+
+    abstract int getNbLoop(LogParams logParams);
 }

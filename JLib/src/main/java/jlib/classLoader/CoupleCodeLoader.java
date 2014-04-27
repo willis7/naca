@@ -8,27 +8,23 @@ package jlib.classLoader;
 
 import java.util.ArrayList;
 
-public class CoupleCodeLoader
-{
-	public CoupleCodeLoader(Class classCode, ClassDynLoader classDynLoader)
-	{
-		m_classCode = classCode;
-		m_classDynLoader = classDynLoader;
-	}
-	
-	public Class getClassCode()
-	{
-		return m_classCode;
-	}
+public class CoupleCodeLoader {
+    public CoupleCodeLoader(Class classCode, ClassDynLoader classDynLoader) {
+        m_classCode = classCode;
+        m_classDynLoader = classDynLoader;
+    }
 
-	void addInstance(Object obj)
-	{
-		if(m_arrInstances == null)
-			m_arrInstances = new ArrayList<Object>();
-		m_arrInstances.add(obj);
-	}
+    public Class getClassCode() {
+        return m_classCode;
+    }
 
-	
+    void addInstance(Object obj) {
+        if (m_arrInstances == null)
+            m_arrInstances = new ArrayList<Object>();
+        m_arrInstances.add(obj);
+    }
+
+
 //	Object makeNewInstance()
 //	{
 //		Object obj = null;
@@ -57,45 +53,38 @@ public class CoupleCodeLoader
 //		}
 //		return null;		
 //	}
-	
-	void removeAllInstances()
-	{
-		if(m_arrInstances != null)
-		{
+
+    void removeAllInstances() {
+        if (m_arrInstances != null) {
 //			int nNbinstances = getNbInstances();
 //			for(int nInstance=0; nInstance<nNbinstances; nInstance++)
 //			{
 //				Object obj = getInstance(nInstance);
 //				// remove all copy parented by obj 
 //			}
-			m_arrInstances.clear();
-			m_arrInstances = null;
-		}
-		m_classCode = null;
-		m_classDynLoader = null;
-	}
-	
-	int getNbInstances()
-	{
-		if(m_arrInstances != null)
-		{
-			return m_arrInstances.size();
-		}
-		return 0;
-	}
-	
-	Object getInstance(int n)
-	{
-		if(m_arrInstances != null)
-		{
-			return m_arrInstances.get(n);
-		}
-		return null;
-	}
-	
-	
+            m_arrInstances.clear();
+            m_arrInstances = null;
+        }
+        m_classCode = null;
+        m_classDynLoader = null;
+    }
 
-	private Class m_classCode = null;
-	private ClassDynLoader m_classDynLoader = null;	// Holds a ref; do not delete 
-	private ArrayList<Object> m_arrInstances = null;	
+    int getNbInstances() {
+        if (m_arrInstances != null) {
+            return m_arrInstances.size();
+        }
+        return 0;
+    }
+
+    Object getInstance(int n) {
+        if (m_arrInstances != null) {
+            return m_arrInstances.get(n);
+        }
+        return null;
+    }
+
+
+    private Class m_classCode = null;
+    private ClassDynLoader m_classDynLoader = null;    // Holds a ref; do not delete
+    private ArrayList<Object> m_arrInstances = null;
 }

@@ -8,43 +8,35 @@ package jlib.misc;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ThreadSafeCounter
-{
-	public ThreadSafeCounter()
-	{
-		m_nCount.set(0);
-	}
-	
-	public ThreadSafeCounter(int n)
-	{
-		m_nCount.set(n);
-	}
-	
-	public int reset()
-	{
-		m_nCount.set(0);
-		return 0; 
-	}
-	
-	public int inc(int n)
-	{ 
-		return m_nCount.addAndGet(n);
-	}
-	
-	public int get()
-	{
-		return m_nCount.get();
-	}
-	
-	public int inc()
-	{
-		return m_nCount.incrementAndGet();
-	}
+public class ThreadSafeCounter {
+    public ThreadSafeCounter() {
+        m_nCount.set(0);
+    }
 
-	public int dec()
-	{
-		return m_nCount.decrementAndGet();
-	}
-	
-	private AtomicInteger m_nCount = new AtomicInteger(0); // count starts at zero
+    public ThreadSafeCounter(int n) {
+        m_nCount.set(n);
+    }
+
+    public int reset() {
+        m_nCount.set(0);
+        return 0;
+    }
+
+    public int inc(int n) {
+        return m_nCount.addAndGet(n);
+    }
+
+    public int get() {
+        return m_nCount.get();
+    }
+
+    public int inc() {
+        return m_nCount.incrementAndGet();
+    }
+
+    public int dec() {
+        return m_nCount.decrementAndGet();
+    }
+
+    private AtomicInteger m_nCount = new AtomicInteger(0); // count starts at zero
 }

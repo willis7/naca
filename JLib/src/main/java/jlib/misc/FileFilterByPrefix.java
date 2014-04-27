@@ -9,23 +9,19 @@ package jlib.misc;
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class FileFilterByPrefix implements FilenameFilter
-{
-	private String m_csPrefix = null;
-	
-	public FileFilterByPrefix(String csPrefix)
-	{
-		m_csPrefix = csPrefix.toUpperCase();
-	}
-	
-	public boolean accept(File dir, String csName)
-	{
-		if(m_csPrefix != null && csName != null)
-		{
-			String cs = csName.toUpperCase();
-			if(cs.startsWith(m_csPrefix))
-				return true;
-		}
-		return false;
-	}
+public class FileFilterByPrefix implements FilenameFilter {
+    private String m_csPrefix = null;
+
+    public FileFilterByPrefix(String csPrefix) {
+        m_csPrefix = csPrefix.toUpperCase();
+    }
+
+    public boolean accept(File dir, String csName) {
+        if (m_csPrefix != null && csName != null) {
+            String cs = csName.toUpperCase();
+            if (cs.startsWith(m_csPrefix))
+                return true;
+        }
+        return false;
+    }
 }

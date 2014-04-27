@@ -9,33 +9,25 @@
 
 package jlib.log.stdEvents;
 
-import jlib.log.Log;
-import jlib.log.LogEvent;
-import jlib.log.LogEventType;
-import jlib.log.LogFlowStd;
-import jlib.log.LogLevel;
+import jlib.log.*;
 
 /**
- * @deprecated Use {@link EventWarning} or {@link EventError} instead. 
  * @author PJD
+ * @deprecated Use {@link EventWarning} or {@link EventError} instead.
  */
-public class StdError extends LogEvent
-{
-	public StdError(String csProduct)
-	{
-		super(LogEventType.Error, LogFlowStd.Trace, LogLevel.Normal, csProduct);
-	}
-	
-	public static LogEvent log(String csChannel, String csContext, String csMessage)
-	{
-		return StdError.log(csChannel, null, csContext, csMessage);
-	}
+public class StdError extends LogEvent {
+    public StdError(String csProduct) {
+        super(LogEventType.Error, LogFlowStd.Trace, LogLevel.Normal, csProduct);
+    }
 
-	public static LogEvent log(String csChannel, String csProduct, String csContext, String csMessage)
-	{
-		StdError event = new StdError(csProduct);
-		event.fillMember("Context", csContext);
-		Log.log(csChannel, event, csMessage);
-		return event;
-	}
+    public static LogEvent log(String csChannel, String csContext, String csMessage) {
+        return StdError.log(csChannel, null, csContext, csMessage);
+    }
+
+    public static LogEvent log(String csChannel, String csProduct, String csContext, String csMessage) {
+        StdError event = new StdError(csProduct);
+        event.fillMember("Context", csContext);
+        Log.log(csChannel, event, csMessage);
+        return event;
+    }
 }

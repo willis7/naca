@@ -6,31 +6,24 @@
  */
 package jlib.log.stdEvents;
 
-import jlib.log.Log;
-import jlib.log.LogEvent;
-import jlib.log.LogEventType;
-import jlib.log.LogFlowStd;
-import jlib.log.LogLevel;
+import jlib.log.*;
+
 /**
  * @author PJD
  * @deprecated Use the {@link EventProgress}, instead.
  */
-public class LogEventAliveProcess extends LogEvent
-{
-	public LogEventAliveProcess(String csProduct)
-	{
-		super(LogEventType.Remark, LogFlowStd.Monitoring, LogLevel.Normal);
-	}
+public class LogEventAliveProcess extends LogEvent {
+    public LogEventAliveProcess(String csProduct) {
+        super(LogEventType.Remark, LogFlowStd.Monitoring, LogLevel.Normal);
+    }
 
-	public static LogEvent log(String csChannel)
-	{
-		return LogEventAliveProcess.log(null);
-	}		
+    public static LogEvent log(String csChannel) {
+        return LogEventAliveProcess.log(null);
+    }
 
-	public static LogEvent log(String csChannel, String csProduct)
-	{
-		LogEventAliveProcess event = new LogEventAliveProcess(csProduct);
-		Log.log(csChannel, event, "");
-		return event;
-	}
+    public static LogEvent log(String csChannel, String csProduct) {
+        LogEventAliveProcess event = new LogEventAliveProcess(csProduct);
+        Log.log(csChannel, event, "");
+        return event;
+    }
 }

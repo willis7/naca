@@ -16,23 +16,22 @@ import jlib.xml.Tag;
 
 /**
  * @author U930CV
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         <p/>
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
-public abstract class BaseDialogFactory
-{
+public abstract class BaseDialogFactory {
 
-	/**
-	 * @param context
-	 * @return
-	 */
-	public abstract BaseDialog getInitialDialog(DisplayContext context) ;
+    /**
+     * @param context
+     * @return
+     */
+    public abstract BaseDialog getInitialDialog(DisplayContext context);
 
-	/**
-	 * @param config
-	 * @param tagFactory
-	 */
-	public abstract void Init(DisplayConfig config, Tag tagFactory) ;
+    /**
+     * @param config
+     * @param tagFactory
+     */
+    public abstract void Init(DisplayConfig config, Tag tagFactory);
 
 }

@@ -6,8 +6,7 @@
  */
 package jlib.engine;
 
-public abstract class BaseNotification
-{
+public abstract class BaseNotification {
 
 
 }

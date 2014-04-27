@@ -5,7 +5,7 @@
  * Licensed under LGPL (LGPL-LICENSE.txt) license.
  */
 /**
- * 
+ *
  */
 package jlib.misc;
 
@@ -15,245 +15,223 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- *
  * @author Pierre-Jean Ditscheid, Consultas SA
  * @version $Id: HTMLCharsetConverter.java,v 1.3 2008/01/11 13:15:39 u930bm Exp $
  */
-public class HTMLCharsetConverter
-{
-	private static ArrayList<String> ms_arrCodes = null;
-	private static Hashtable<String, Character> ms_hashCodes = null;
-	
-	public synchronized static void initOnce()
-	{
-		if(ms_arrCodes != null)	// init only once
-			return ;
-		ms_arrCodes = new ArrayList<String>();
-		ms_hashCodes = new Hashtable<String, Character>();
-		
-		for(int n=0; n<256; n++)
-		{			
-			String cs = "&#" + n + ";";
-			ms_arrCodes.add(cs);
-			ms_hashCodes.put(cs, (char) n);
-		}
-		
-		set(34, "&quot;"); //     "         
-		set(38, "&amp;");	//             
-		set(39, "&rsquo;"); //     '
-		set(60, "&lt;");	//       <         
-		set(62, "&gt;");	//       >         
-		set(160, "&nbsp;"); //                
-		set(161, "&iexcl;"); //	¡       
-		set(162, "&cent;");  //    ¢           
-		set(163, "&pound;"); //	£       
-		set(164, "&curren;"); //  ¤           
-		set(165, "&yen;");		//	¥       
-		set(166, "&brvbar;");	//  ¦           
-		set(167, "&sect;");	//§       
-		set(168, "&uml;");		//  ¨           
-		set(169, "&copy;");	//©       
-		set(170, "&ordf;");	//    ª           
-		set(171, "&laquo;");	//«       
-		set(172, "&not;");		//     ¬          
-		set(173, "&shy;");		//­       
-		set(174, "&reg;");		//     ®           
-		set(175, "&macr;");	//¯       
-		set(176, "&deg;");		//     °          
-		set(177, "&plusmn;"); //±       
-		set(178, "&sup2;"); //    ²          
-		set(179, "&sup3;"); //³       
-		set(180, "&acute;"); //   ´          
-		set(181, "&micro;"); //µ       
-		set(182, "&para;"); //    ¶          
-		set(183, "&middot;"); //·       
-		set(184, "&cedil;"); //   ¸           
-		set(185, "&sup1;"); //¹       
-		set(186, "&ordm;"); //    º           
-		set(187, "&raquo;"); //»       
-		set(188, "&frac14;"); //  ¼           
-		set(189, "&frac12;"); //½       
-		set(190, "&frac34;"); //  ¾           
-		set(191, "&iquest;"); //¿       
-		set(192, "&Agrave;"); //  À          
-		set(193, "&Aacute;"); //Á       
-		set(194, "&Acirc;"); //   Â          
-		set(195, "&Atilde;"); //Ã       
-		set(196, "&Auml;"); //    Ä          
-		set(197, "&Aring;"); //Å       
-		set(198, "&AElig;"); //   Æ          
-		set(199, "&Ccedil;"); //Ç       
-		set(200, "&Egrave;"); //  È          
-		set(201, "&Eacute;"); //É       
-		set(202, "&Ecirc;"); //   Ê          
-		set(203, "&Euml;"); //Ë       
-		set(204, "&Igrave;"); //  Ì          
-		set(205, "&Iacute;"); //Í       
-		set(206, "&Icirc;"); //   Î          
-		set(207, "&Iuml;"); //Ï       
-		set(208, "&ETH;"); //     Ð            
-		set(209, "&Ntilde;"); //Ñ       
-		set(210, "&Ograve;"); //  Ò          
-		set(211, "&Oacute;"); //Ó       
-		set(212, "&Ocirc;"); //   Ô          
-		set(213, "&Otilde;"); //Õ       
-		set(214, "&Ouml;"); //    Ö         
-		set(215, "&times;"); //×       
-		set(216, "&Oslash;"); //  Ø         
-		set(217, "&Ugrave;"); //Ù       
-		set(218, "&Uacute;"); //  Ú          
-		set(219, "&Ucirc;"); //Û       
-		set(220, "&Uuml;"); //    Ü          
-		set(221, "&Yacute;"); //Ý       
-		set(222, "&THORN;"); //   Þ          
-		set(223, "&szlig;"); //ß       
-		set(224, "&agrave;"); //  à          
-		set(225, "&aacute;"); //á       
-		set(226, "&acirc;"); //   â          
-		set(227, "&atilde;"); //ã       
-		set(228, "&auml;"); //    ä          
-		set(229, "&aring;"); //å       
-		set(230, "&aelig;"); //   æ          
-		set(231, "&ccedil;"); //ç       
-		set(232, "&egrave;"); //  è         
-		set(233, "&eacute;"); //é       
-		set(234, "&ecirc;"); //   ê         
-		set(235, "&euml;"); //ë       
-		set(236, "&igrave;"); //  ì         
-		set(237, "&iacute;"); //í       
-		set(238, "&icirc;"); //   î         
-		set(239, "&iuml;"); //ï       
-		set(240, "&eth;"); //     ð         
-		set(241, "&ntilde;"); //ñ       
-		set(242, "&ograve;"); //  ò         
-		set(243, "&oacute;"); //ó       
-		set(244, "&ocirc;"); //   ô         
-		set(245, "&otilde;"); //õ       
-		set(246, "&ouml;"); //    ö         
-		set(247, "&divide;"); //÷       
-		set(248, "&oslash;"); //  ø          
-		set(249, "&ugrave;"); //ù       
-		set(250, "&uacute;"); //  ú         
-		set(251, "&ucirc;"); //û       
-		set(252, "&uuml;"); //    ü         
-		set(253, "&yacute;"); //ý       
-		set(254, "&thorn;"); //   þ         
-		set(255, "&yuml;"); //ÿ       
-	}
-	
-	private static void set(int nAsciiCode, String csHTMLCode)
-	{
-		ms_arrCodes.set(nAsciiCode, csHTMLCode);
-		ms_hashCodes.put(csHTMLCode, (char) nAsciiCode);
-	}
-	
-	static String getEncodedString(char c)
-	{
-		int nAsciiCode = (int) c;
-		if(nAsciiCode >= 0 && nAsciiCode < 256)
-		{
-			String csHTMLCode = ms_arrCodes.get(nAsciiCode);
-			return csHTMLCode; 
-		}
-		return "" + c;
-	}
-	
-	static char getDecodedChar(String csHTMLValue)
-	{
-		return ms_hashCodes.get(csHTMLValue);
-	}
-	
-	static String encodeIntoCustomString(String csHTMLValue)
-	{
-		Character c = ms_hashCodes.get(csHTMLValue);
-		if(c != null)
-		{
-			csHTMLValue = "[" + csHTMLValue.substring(1).toUpperCase() + "]";
-		}
-		return csHTMLValue;
-	}
+public class HTMLCharsetConverter {
+    private static ArrayList<String> ms_arrCodes = null;
+    private static Hashtable<String, Character> ms_hashCodes = null;
 
-	static String decodeFromCustomString(String csHTMLValue)
-	{
-		if(csHTMLValue.startsWith("[") && csHTMLValue.endsWith("]"))
-		{
-			csHTMLValue = csHTMLValue.substring(1, csHTMLValue.length()-1);
-			csHTMLValue = csHTMLValue.toLowerCase();
-			csHTMLValue = "&" + csHTMLValue; 
-		}
-		return csHTMLValue;
-	}
-	
-	public static StringBuilder encodeIntoCustomString(StringBuilder sb)
-	{
-		initOnce();
-		Set<String> arr = ms_hashCodes.keySet();
-		Iterator<String> iter = arr.iterator();
-		while(iter.hasNext())
-		{
-			String csHTMLValue = iter.next();
-			if(csHTMLValue.length() > 1)
-			{
-				String csEncodedHTMLValue = encodeIntoCustomString(csHTMLValue);
-				StringUtil.replace(sb, csHTMLValue, csEncodedHTMLValue);
-			}
-		}
-		// Encode also chars encoded with numeric value (&#215; -> [#215])
-		int nStart = sb.indexOf("&#");
-		while(nStart >= 0)
-		{
-			int nEnd = sb.indexOf(";", nStart);
-			String csNumVal = sb.substring(nStart+2, nEnd);
-			if(StringUtil.isAllDigits(csNumVal))
-			{
-				csNumVal = "[#" + csNumVal + "]"; 
-				String csLeft = sb.substring(0, nStart);
-				String csRight = sb.substring(nEnd+1);
-				sb.setLength(0);
-				sb.append(csLeft);
-				sb.append(csNumVal);
-				sb.append(csRight);
-			}
-			
-			nStart = sb.indexOf("&#", nEnd);
-		}
-		return sb;
-	}
-	
-	public static StringBuilder decodeFromCustomString(StringBuilder sb)
-	{
-		initOnce();
-		Set<String> arr = ms_hashCodes.keySet();
-		Iterator<String> iter = arr.iterator();
-		while(iter.hasNext())
-		{
-			String csHTMLValue = iter.next();
-			if(csHTMLValue.length() > 1)
-			{
-				String csEncodedHTMLValue = encodeIntoCustomString(csHTMLValue);
-				StringUtil.replace(sb, csEncodedHTMLValue, csHTMLValue);
-			}
-		}
-		// Decode also chars encoded with numeric value ([#215] -> &#215;)
-		int nStart = sb.indexOf("[#");
-		while(nStart >= 0)
-		{
-			int nEnd = sb.indexOf("]", nStart);
-			String csNumVal = sb.substring(nStart+2, nEnd);
-			if(StringUtil.isAllDigits(csNumVal))
-			{
-				csNumVal = "&#" + csNumVal + ";"; 
-				String csLeft = sb.substring(0, nStart);
-				String csRight = sb.substring(nEnd+1);
-				sb.setLength(0);
-				sb.append(csLeft);
-				sb.append(csNumVal);
-				sb.append(csRight);
-			}
-			
-			nStart = sb.indexOf("[#", nEnd);
-		}
+    public synchronized static void initOnce() {
+        if (ms_arrCodes != null)    // init only once
+            return;
+        ms_arrCodes = new ArrayList<String>();
+        ms_hashCodes = new Hashtable<String, Character>();
 
-		return sb;
-	}
+        for (int n = 0; n < 256; n++) {
+            String cs = "&#" + n + ";";
+            ms_arrCodes.add(cs);
+            ms_hashCodes.put(cs, (char) n);
+        }
+
+        set(34, "&quot;"); //     "
+        set(38, "&amp;");    //
+        set(39, "&rsquo;"); //     '
+        set(60, "&lt;");    //       <
+        set(62, "&gt;");    //       >
+        set(160, "&nbsp;"); //
+        set(161, "&iexcl;"); //	ï¿½
+        set(162, "&cent;");  //    ï¿½
+        set(163, "&pound;"); //	ï¿½
+        set(164, "&curren;"); //  ï¿½
+        set(165, "&yen;");        //	ï¿½
+        set(166, "&brvbar;");    //  ï¿½
+        set(167, "&sect;");    //ï¿½
+        set(168, "&uml;");        //  ï¿½
+        set(169, "&copy;");    //ï¿½
+        set(170, "&ordf;");    //    ï¿½
+        set(171, "&laquo;");    //ï¿½
+        set(172, "&not;");        //     ï¿½
+        set(173, "&shy;");        //ï¿½
+        set(174, "&reg;");        //     ï¿½
+        set(175, "&macr;");    //ï¿½
+        set(176, "&deg;");        //     ï¿½
+        set(177, "&plusmn;"); //ï¿½
+        set(178, "&sup2;"); //    ï¿½
+        set(179, "&sup3;"); //ï¿½
+        set(180, "&acute;"); //   ï¿½
+        set(181, "&micro;"); //ï¿½
+        set(182, "&para;"); //    ï¿½
+        set(183, "&middot;"); //ï¿½
+        set(184, "&cedil;"); //   ï¿½
+        set(185, "&sup1;"); //ï¿½
+        set(186, "&ordm;"); //    ï¿½
+        set(187, "&raquo;"); //ï¿½
+        set(188, "&frac14;"); //  ï¿½
+        set(189, "&frac12;"); //ï¿½
+        set(190, "&frac34;"); //  ï¿½
+        set(191, "&iquest;"); //ï¿½
+        set(192, "&Agrave;"); //  ï¿½
+        set(193, "&Aacute;"); //ï¿½
+        set(194, "&Acirc;"); //   ï¿½
+        set(195, "&Atilde;"); //ï¿½
+        set(196, "&Auml;"); //    ï¿½
+        set(197, "&Aring;"); //ï¿½
+        set(198, "&AElig;"); //   ï¿½
+        set(199, "&Ccedil;"); //ï¿½
+        set(200, "&Egrave;"); //  ï¿½
+        set(201, "&Eacute;"); //ï¿½
+        set(202, "&Ecirc;"); //   ï¿½
+        set(203, "&Euml;"); //ï¿½
+        set(204, "&Igrave;"); //  ï¿½
+        set(205, "&Iacute;"); //ï¿½
+        set(206, "&Icirc;"); //   ï¿½
+        set(207, "&Iuml;"); //ï¿½
+        set(208, "&ETH;"); //     ï¿½
+        set(209, "&Ntilde;"); //ï¿½
+        set(210, "&Ograve;"); //  ï¿½
+        set(211, "&Oacute;"); //ï¿½
+        set(212, "&Ocirc;"); //   ï¿½
+        set(213, "&Otilde;"); //ï¿½
+        set(214, "&Ouml;"); //    ï¿½
+        set(215, "&times;"); //ï¿½
+        set(216, "&Oslash;"); //  ï¿½
+        set(217, "&Ugrave;"); //ï¿½
+        set(218, "&Uacute;"); //  ï¿½
+        set(219, "&Ucirc;"); //ï¿½
+        set(220, "&Uuml;"); //    ï¿½
+        set(221, "&Yacute;"); //ï¿½
+        set(222, "&THORN;"); //   ï¿½
+        set(223, "&szlig;"); //ï¿½
+        set(224, "&agrave;"); //  ï¿½
+        set(225, "&aacute;"); //ï¿½
+        set(226, "&acirc;"); //   ï¿½
+        set(227, "&atilde;"); //ï¿½
+        set(228, "&auml;"); //    ï¿½
+        set(229, "&aring;"); //ï¿½
+        set(230, "&aelig;"); //   ï¿½
+        set(231, "&ccedil;"); //ï¿½
+        set(232, "&egrave;"); //  ï¿½
+        set(233, "&eacute;"); //ï¿½
+        set(234, "&ecirc;"); //   ï¿½
+        set(235, "&euml;"); //ï¿½
+        set(236, "&igrave;"); //  ï¿½
+        set(237, "&iacute;"); //ï¿½
+        set(238, "&icirc;"); //   ï¿½
+        set(239, "&iuml;"); //ï¿½
+        set(240, "&eth;"); //     ï¿½
+        set(241, "&ntilde;"); //ï¿½
+        set(242, "&ograve;"); //  ï¿½
+        set(243, "&oacute;"); //ï¿½
+        set(244, "&ocirc;"); //   ï¿½
+        set(245, "&otilde;"); //ï¿½
+        set(246, "&ouml;"); //    ï¿½
+        set(247, "&divide;"); //ï¿½
+        set(248, "&oslash;"); //  ï¿½
+        set(249, "&ugrave;"); //ï¿½
+        set(250, "&uacute;"); //  ï¿½
+        set(251, "&ucirc;"); //ï¿½
+        set(252, "&uuml;"); //    ï¿½
+        set(253, "&yacute;"); //ï¿½
+        set(254, "&thorn;"); //   ï¿½
+        set(255, "&yuml;"); //ï¿½
+    }
+
+    private static void set(int nAsciiCode, String csHTMLCode) {
+        ms_arrCodes.set(nAsciiCode, csHTMLCode);
+        ms_hashCodes.put(csHTMLCode, (char) nAsciiCode);
+    }
+
+    static String getEncodedString(char c) {
+        int nAsciiCode = (int) c;
+        if (nAsciiCode >= 0 && nAsciiCode < 256) {
+            String csHTMLCode = ms_arrCodes.get(nAsciiCode);
+            return csHTMLCode;
+        }
+        return "" + c;
+    }
+
+    static char getDecodedChar(String csHTMLValue) {
+        return ms_hashCodes.get(csHTMLValue);
+    }
+
+    static String encodeIntoCustomString(String csHTMLValue) {
+        Character c = ms_hashCodes.get(csHTMLValue);
+        if (c != null) {
+            csHTMLValue = "[" + csHTMLValue.substring(1).toUpperCase() + "]";
+        }
+        return csHTMLValue;
+    }
+
+    static String decodeFromCustomString(String csHTMLValue) {
+        if (csHTMLValue.startsWith("[") && csHTMLValue.endsWith("]")) {
+            csHTMLValue = csHTMLValue.substring(1, csHTMLValue.length() - 1);
+            csHTMLValue = csHTMLValue.toLowerCase();
+            csHTMLValue = "&" + csHTMLValue;
+        }
+        return csHTMLValue;
+    }
+
+    public static StringBuilder encodeIntoCustomString(StringBuilder sb) {
+        initOnce();
+        Set<String> arr = ms_hashCodes.keySet();
+        Iterator<String> iter = arr.iterator();
+        while (iter.hasNext()) {
+            String csHTMLValue = iter.next();
+            if (csHTMLValue.length() > 1) {
+                String csEncodedHTMLValue = encodeIntoCustomString(csHTMLValue);
+                StringUtil.replace(sb, csHTMLValue, csEncodedHTMLValue);
+            }
+        }
+        // Encode also chars encoded with numeric value (&#215; -> [#215])
+        int nStart = sb.indexOf("&#");
+        while (nStart >= 0) {
+            int nEnd = sb.indexOf(";", nStart);
+            String csNumVal = sb.substring(nStart + 2, nEnd);
+            if (StringUtil.isAllDigits(csNumVal)) {
+                csNumVal = "[#" + csNumVal + "]";
+                String csLeft = sb.substring(0, nStart);
+                String csRight = sb.substring(nEnd + 1);
+                sb.setLength(0);
+                sb.append(csLeft);
+                sb.append(csNumVal);
+                sb.append(csRight);
+            }
+
+            nStart = sb.indexOf("&#", nEnd);
+        }
+        return sb;
+    }
+
+    public static StringBuilder decodeFromCustomString(StringBuilder sb) {
+        initOnce();
+        Set<String> arr = ms_hashCodes.keySet();
+        Iterator<String> iter = arr.iterator();
+        while (iter.hasNext()) {
+            String csHTMLValue = iter.next();
+            if (csHTMLValue.length() > 1) {
+                String csEncodedHTMLValue = encodeIntoCustomString(csHTMLValue);
+                StringUtil.replace(sb, csEncodedHTMLValue, csHTMLValue);
+            }
+        }
+        // Decode also chars encoded with numeric value ([#215] -> &#215;)
+        int nStart = sb.indexOf("[#");
+        while (nStart >= 0) {
+            int nEnd = sb.indexOf("]", nStart);
+            String csNumVal = sb.substring(nStart + 2, nEnd);
+            if (StringUtil.isAllDigits(csNumVal)) {
+                csNumVal = "&#" + csNumVal + ";";
+                String csLeft = sb.substring(0, nStart);
+                String csRight = sb.substring(nEnd + 1);
+                sb.setLength(0);
+                sb.append(csLeft);
+                sb.append(csNumVal);
+                sb.append(csRight);
+            }
+
+            nStart = sb.indexOf("[#", nEnd);
+        }
+
+        return sb;
+    }
 }

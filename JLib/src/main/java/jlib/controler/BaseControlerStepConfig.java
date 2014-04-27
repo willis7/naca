@@ -5,63 +5,53 @@
  * Licensed under LGPL (LGPL-LICENSE.txt) license.
  */
 /**
- * 
+ *
  */
 package jlib.controler;
 
 import jlib.xml.Tag;
 
-public abstract class BaseControlerStepConfig
-{
+public abstract class BaseControlerStepConfig {
 
-	public BaseControlerStepConfig(String csStepName)
-	{
-		m_csName = csStepName ;
-	}
-	
-	private String m_csName = "" ;
-	private boolean m_bActive = false ;
-	private int m_nDelayBeforeStart = 0 ;
-	private int m_nDelayBeforeRestart = 0 ;
+    public BaseControlerStepConfig(String csStepName) {
+        m_csName = csStepName;
+    }
 
-	public String getName()
-	{
-		return m_csName ;
-	}
+    private String m_csName = "";
+    private boolean m_bActive = false;
+    private int m_nDelayBeforeStart = 0;
+    private int m_nDelayBeforeRestart = 0;
 
-	public boolean isActive()
-	{
-		return m_bActive ;
-	} 
+    public String getName() {
+        return m_csName;
+    }
 
-	protected int getDelayBeforeStart()
-	{
-		return m_nDelayBeforeStart;
-	}
+    public boolean isActive() {
+        return m_bActive;
+    }
 
-	protected int getDelayBeforeRestart()
-	{
-		return m_nDelayBeforeRestart ;
-	}
+    protected int getDelayBeforeStart() {
+        return m_nDelayBeforeStart;
+    }
 
-	void Setup(Tag tagSite)
-	{
-		m_nDelayBeforeStart = tagSite.getValAsInt("startdelay") ;
-		m_nDelayBeforeRestart = tagSite.getValAsInt("restartdelay") ;
-		String cs = tagSite.getVal("status") ;
-		if (cs.equalsIgnoreCase("active"))
-		{
-			m_bActive = true ;
-		}
-		else
-		{
-			m_bActive = false ;
-		}
-		
-		intSetup(tagSite) ;
-	}
+    protected int getDelayBeforeRestart() {
+        return m_nDelayBeforeRestart;
+    }
 
-	protected abstract void intSetup(Tag tagSite) ;
+    void Setup(Tag tagSite) {
+        m_nDelayBeforeStart = tagSite.getValAsInt("startdelay");
+        m_nDelayBeforeRestart = tagSite.getValAsInt("restartdelay");
+        String cs = tagSite.getVal("status");
+        if (cs.equalsIgnoreCase("active")) {
+            m_bActive = true;
+        } else {
+            m_bActive = false;
+        }
+
+        intSetup(tagSite);
+    }
+
+    protected abstract void intSetup(Tag tagSite);
 //	void setCurrentControler(BaseControler ctrl)
 //	{
 //		m_CurrentControler = ctrl ;

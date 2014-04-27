@@ -14,36 +14,30 @@ package jlib.log;
 
 /**
  * @author PJD
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         <p/>
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
-public class PatternLayoutFileChunk extends LogPatternLayout
-{
-	public PatternLayoutFileChunk()
-	{
-		super();
-	}
-	
-	String getMessage(LogParams logParams)
-	{
-		String csMessage = logParams.getMessage();
-		return ">" + csMessage + "\r\n";
-	}
+public class PatternLayoutFileChunk extends LogPatternLayout {
+    public PatternLayoutFileChunk() {
+        super();
+    }
 
-	String format(LogParams logParams, int n)
-	{
-		String cs = logParams.getTextItem(n);
-		if(cs != null)
-		{
-			return "." + cs + "\r\n";
-		}
-		return null;
-	}	
-	
-	int getNbLoop(LogParams logParams)
-	{
-		return logParams.getNbParamInfoMember();
-	}
+    String getMessage(LogParams logParams) {
+        String csMessage = logParams.getMessage();
+        return ">" + csMessage + "\r\n";
+    }
+
+    String format(LogParams logParams, int n) {
+        String cs = logParams.getTextItem(n);
+        if (cs != null) {
+            return "." + cs + "\r\n";
+        }
+        return null;
+    }
+
+    int getNbLoop(LogParams logParams) {
+        return logParams.getNbParamInfoMember();
+    }
 
 }

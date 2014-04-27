@@ -6,34 +6,29 @@
  */
 package jlib.jmxMBean;
 
-public class CheckUpAndRunning implements CheckUpAndRunningMBean
-{
-	public boolean isUp()
-	{
-		if(m_bInc)	
-			m_nbUp++;
-		else
-			m_nbUp--;
-		return true;
-	}
-	
-	public int getNbCheckUp()
-	{
-		return m_nbUp;
-	}
+public class CheckUpAndRunning implements CheckUpAndRunningMBean {
+    public boolean isUp() {
+        if (m_bInc)
+            m_nbUp++;
+        else
+            m_nbUp--;
+        return true;
+    }
 
-	public boolean getInc()
-	{
-		return m_bInc;
-	}
-	
-	public void setInc(boolean b)
-	{
-		m_bInc = b;
-	}
+    public int getNbCheckUp() {
+        return m_nbUp;
+    }
 
-	private int m_nbUp = 0;
-	private boolean m_bInc = true;
+    public boolean getInc() {
+        return m_bInc;
+    }
+
+    public void setInc(boolean b) {
+        m_bInc = b;
+    }
+
+    private int m_nbUp = 0;
+    private boolean m_bInc = true;
 }
 
 

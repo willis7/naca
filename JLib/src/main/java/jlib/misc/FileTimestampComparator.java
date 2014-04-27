@@ -19,24 +19,21 @@ import java.util.Comparator;
 
 /**
  * @author PJD
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         <p/>
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
-public class FileTimestampComparator implements Comparator<File>
-{
-	FileTimestampComparator()
-	{
-	}
-	
-	public int compare(File file1, File file2)
-	{
-		long l1 = file1.lastModified();
-		long l2 = file2.lastModified();
-		if(l1 - l2 < 0)
-			return -1;
-		if(l1 == l2)
-			return 0;
-		return 1;
-	}
+public class FileTimestampComparator implements Comparator<File> {
+    FileTimestampComparator() {
+    }
+
+    public int compare(File file1, File file2) {
+        long l1 = file1.lastModified();
+        long l2 = file2.lastModified();
+        if (l1 - l2 < 0)
+            return -1;
+        if (l1 == l2)
+            return 0;
+        return 1;
+    }
 }

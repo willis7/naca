@@ -6,10 +6,8 @@
  */
 package jlib.classLoader;
 
-public class BaseObject
-{
-	public void DebugTestExecute()
-	{
-		
-	}
+public class BaseObject {
+    public void DebugTestExecute() {
+
+    }
 }
