@@ -6,3 +6,13 @@ dependencies {
     compile 'log4j:log4j:1.2.8'
     compile 'org.apache.ant:ant:1.8.0'
 }
+
+task runNacaTrans ( dependsOn: 'classes', type: JavaExec) {
+    main = 'idea.entryPoint.OnlineMain'
+    classpath = sourceSets.main.runtimeClasspath
+
+    args '-Path', 'D:\\Dev\\naca\\NacaRTTests\\bin'                         // Path where .class files are compiled.
+    args '-ConfigFile', 'D:\\Dev\\naca\\NacaRTTests\\Main\\nacaRT.cfg'      // path and file name of the configuration file
+    args '-Program', 'HelloWorld'                                           // class Main of the program to run
+    args '-DisableInitialDbConnection'                                      // disable initial DB connection.
+}

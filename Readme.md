@@ -1,6 +1,6 @@
 # Publicitas Naca version 1.0.0.
 
-0. Contacts
+## 0. Contacts
 
 Please use the following contact information for details:
 Web site: technology.publicitas.com
@@ -10,13 +10,13 @@ Google group: http://groups.google.com/group/naca-automated-cobol-to-java-transc
 
 See Changes.txt file for recent updates.
 
-1. Licencing
+## 1. Licencing
 
 Copyright (c) 2005, 2006, 2007, 2008 Publicitas SA.
 JLib and NacaRT are licensed under LGPL (LGPL-LICENSE.txt) license.
 NacaRTTests and NacaTrans are licensed under GPL (GPL-LICENSE.txt) license.
 
-2. Documentation
+## 2. Documentation
 
 2.1. Readme.txt
 
@@ -24,7 +24,7 @@ It's this file !
 
 2.2. Whitepaper
 
-Launch your favorite browser on doc/WhitePaper/NacaWhitePaper.htm to access Naca's whitepaper. 
+Launch your favorite browser on doc/WhitePaper/NacaWhitePaper.htm to access Naca's whitepaper.
 
 2.3. Details on Java libraries and operations: JLib / NacaRT
 
@@ -35,7 +35,7 @@ Launch your favorite browser on doc/doc/JLib_NacaRT/index.html for implementatio
 Transcoder usage and implementation is not publicly documented yet. Please send an email at naca-contact@publicitas.com to get futher details.
 However, NacaTrans transcoder source code is provided in the NacaTrans project.
 
-3. Installation
+## 3. Installation
 
 - Install Sun JDK version 1.6.
 - Instal Eclipse version >= 3.1.
@@ -43,13 +43,13 @@ However, NacaTrans transcoder source code is provided in the NacaTrans project.
 - Unzip it in some directory. Configuration files are setup to D:\Dev\naca for windows XP computer, thus it's easier to use this path.
 - Lauch Eclispe IDE.
 - Import Projects in Eclipe:
-	- D:\Dev\naca\JLib: JLib is Publicitas's Base java library
-	- D:\Dev\naca\NacaRT: NacaRT, is NacaRuntime, runtime library for all Cobol transcoded programs
-	- D:\Dev\naca\NacaRTTests: NacaRTTests implements some unit program source files; used for testing Cobol verbs
-	- D:\Dev\naca\NacaTrans: NacaTrans is Naca's transcoder: Cobol to Java transcoder.
+    - D:\Dev\naca\JLib: JLib is Publicitas's Base java library
+    - D:\Dev\naca\NacaRT: NacaRT, is NacaRuntime, runtime library for all Cobol transcoded programs
+    - D:\Dev\naca\NacaRTTests: NacaRTTests implements some unit program source files; used for testing Cobol verbs
+    - D:\Dev\naca\NacaTrans: NacaTrans is Naca's transcoder: Cobol to Java transcoder.
 - Build all 4 projects. A bin directory should be created in every projet; it contains the compiled byte code files.
 
-4. Test
+## 4. Test
 
 4.1 Create a launch configuration
 
@@ -58,13 +58,13 @@ At this step, we will run a sample program written using the transcoded notation
 In  Eclispe, select "Run" menu option "Open debug dialog".
 Right click "Java application in the left pane. Select "New", and set it's name to "NacaRTTests".
 Then fill the following settings:
-	- Project: NacaRT
-	- Main class: idea.entryPoint.OnlineMain
-	- Program arguments: 
-		-Path=D:\Dev\naca\NacaRTTests\bin  
-		-ConfigFile=D:\Dev\naca\NacaRTTests\Main\nacaRT.cfg
-		-Program=HelloWorld
-		-DisableInitialDbConnection
+    - Project: NacaRT
+    - Main class: idea.entryPoint.OnlineMain
+    - Program arguments:
+        -Path=D:\Dev\naca\NacaRTTests\bin
+        -ConfigFile=D:\Dev\naca\NacaRTTests\Main\nacaRT.cfg
+        -Program=HelloWorld
+        -DisableInitialDbConnection
 Save the configuration by clicking "Apply".
 
 The arguments provided means:
