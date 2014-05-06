@@ -103,28 +103,6 @@ public class FileHelper implements FilenameFilter {
 //************************************************************************************
 
     /**
-     * Checks if a particular filename matches the specified wildcard.
-     * This method is part of the {@link FilenameFilter} interface.
-     */
-    public boolean accept(File folder, String filename) {
-        if (m_pattern == null)
-            return true;
-
-        if (filename == null)
-            filename = "";
-
-        if (filename.length() == 0)
-            return false;
-
-        Matcher m = m_pattern.matcher(filename);
-        return m.matches();
-    }
-
-//***********************************************************************************
-//**               Returns the list of files matching
-//***********************************************************************************
-
-    /**
      * Returns the list of filenames matching the specified path.
      * The path can contain wildcards in its 'file' section, but
      * not in its 'folder' section.
@@ -137,6 +115,10 @@ public class FileHelper implements FilenameFilter {
     public static File[] getFileList(String path) {
         return getFileList(null, path, false);
     }
+
+//***********************************************************************************
+//**               Returns the list of files matching
+//***********************************************************************************
 
     /**
      * Returns a list of files from the specified absolute folder path and
@@ -292,10 +274,6 @@ public class FileHelper implements FilenameFilter {
 
     }
 
-//******************************************************************************************
-//**                        Copies a file to a folder or to a file.                       **
-//******************************************************************************************
-
     /**
      * Copies a file to a folder or to a file.
      *
@@ -309,6 +287,10 @@ public class FileHelper implements FilenameFilter {
     public static void copyFile(File origin, File destination) {
         copyFile(origin, destination, null);
     }
+
+//******************************************************************************************
+//**                        Copies a file to a folder or to a file.                       **
+//******************************************************************************************
 
     /**
      * Copies a file to a folder or to a file.
@@ -397,10 +379,6 @@ public class FileHelper implements FilenameFilter {
         copyFile(fis, fos);
     }
 
-//************************************************************************************
-//**               Checks if the specified path is absolute.                        **
-//************************************************************************************
-
     /**
      * Checks if the specified path is absolute.
      * <ul>
@@ -410,7 +388,7 @@ public class FileHelper implements FilenameFilter {
      * <pre>/root/data/...</pre></li>
      * </ul>
      *
-     * @param The path to check.
+     * @param path to check.
      * @return <i>true</i> if the path is absolute.
      */
     public static boolean isAbsolutePath(String path) {
@@ -426,9 +404,10 @@ public class FileHelper implements FilenameFilter {
             return true;
         return false;
     }
-//**********************************************************************************
-//**                 Ensures that a file name is unique.                          **
-//**********************************************************************************
+
+//************************************************************************************
+//**               Checks if the specified path is absolute.                        **
+//************************************************************************************
 
     /**
      * Ensures that a file name is unique.
@@ -444,6 +423,9 @@ public class FileHelper implements FilenameFilter {
         }
         return unique;
     }
+//**********************************************************************************
+//**                 Ensures that a file name is unique.                          **
+//**********************************************************************************
 
     /**
      * Ensures that a file name is unique.
@@ -455,10 +437,6 @@ public class FileHelper implements FilenameFilter {
         String fileName = file.getName();
         return makeUnique(baseFolder, fileName);
     }
-
-//**********************************************************************************
-//**                 Standardize a file name.                                      **
-//**********************************************************************************
 
     /**
      * Standardize the specified file name.
@@ -488,47 +466,47 @@ public class FileHelper implements FilenameFilter {
                     break;
                 case '-':
                     break;
-                case '�':
+                case 'ç':
                     c = 'c';
                     break;
-                case '�':
+                case 'Ç':
                     c = 'C';
                     break;
-                case '�':
+                case 'Ñ':
                     c = 'N';
                     break;
-                case '�':
+                case 'ñ':
                     c = 'n';
                     break;
 
-                case '�':
-                case '�':
-                case '�':
-                case '�':
+                case 'ä':
+                case 'â':
+                case 'à':
+                case 'á':
                     c = 'a';
                     break;
-                case '�':
-                case '�':
-                case '�':
-                case '�':
+                case 'ë':
+                case 'ê':
+                case 'è':
+                case 'é':
                     c = 'e';
                     break;
-                case '�':
-                case '�':
-                case '�':
-                case '�':
+                case 'ï':
+                case 'î':
+                case 'ì':
+                case 'í':
                     c = 'i';
                     break;
-                case '�':
-                case '�':
-                case '�':
-                case '�':
+                case 'ö':
+                case 'ô':
+                case 'ò':
+                case 'ó':
                     c = 'o';
                     break;
-                case '�':
-                case '�':
-                case '�':
-                case '�':
+                case 'ü':
+                case 'û':
+                case 'ù':
+                case 'ú':
                     c = 'u';
                     break;
                 case '\'':
@@ -560,15 +538,15 @@ public class FileHelper implements FilenameFilter {
         return standard.toString();
     }
 
-//************************************************************************************
-//**               Delete a file
-//************************************************************************************
+//**********************************************************************************
+//**                 Standardize a file name.                                      **
+//**********************************************************************************
 
     /**
      * Delete the file targeted by the filePath
      *
-     * @param String filePath
-     * @return Boolean isDeleted
+     * @param filePath String
+     * @return isDeleted Boolean
      * !!! the method returns false if :
      * - the filePath targets a folder
      * - the file does not exist
@@ -581,5 +559,27 @@ public class FileHelper implements FilenameFilter {
         if (!fileToDelete.isFile()) return false;
 
         return fileToDelete.delete();
+    }
+
+//************************************************************************************
+//**               Delete a file
+//************************************************************************************
+
+    /**
+     * Checks if a particular filename matches the specified wildcard.
+     * This method is part of the {@link FilenameFilter} interface.
+     */
+    public boolean accept(File folder, String filename) {
+        if (m_pattern == null)
+            return true;
+
+        if (filename == null)
+            filename = "";
+
+        if (filename.length() == 0)
+            return false;
+
+        Matcher m = m_pattern.matcher(filename);
+        return m.matches();
     }
 }
